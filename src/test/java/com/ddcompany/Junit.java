@@ -7,12 +7,24 @@ import java.lang.reflect.Method;
 
 public class Junit {
 
-    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         for (Method declaredMethod : SimpleTest.class.getDeclaredMethods()) {
-            declaredMethod.getAnnotation(Test.class);
-            Test test = declaredMethod.getAnnotation((Test.class));
+            Test test = declaredMethod.getAnnotation(Test.class);
             if (test != null) {
-                declaredMethod.invoke(SimpleTest.class.getConstructor().newInstance());
+                try {
+                    declaredMethod.invoke(
+                            SimpleTest.class.getConstructor().newInstance()
+                    );
+                } catch (InvocationTargetException e) {
+                    if (e.getCause() instanceof AssertionError) {
+                        System.out.println("Test " + declaredMethod.getName() + " failed: " + e.getCause().getMessage());
+                        continue;
+                    } else {
+                        System.out.println("Test " + declaredMethod.getName() + " broken: " + e.getCause().getMessage());
+                        continue;
+                    }
+                }
+                System.out.println("Test " + declaredMethod.getName() + " passed!");
             }
         }
     }
