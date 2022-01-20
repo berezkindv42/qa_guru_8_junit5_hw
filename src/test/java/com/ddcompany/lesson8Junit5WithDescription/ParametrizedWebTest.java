@@ -21,7 +21,6 @@ public class ParametrizedWebTest {
         System.out.println("@BeforeEach");
     }
 
-    @DisplayName("Тестирование общего алгоритма поиска")
     @ValueSource(strings = {"Selenide", "Junit"}) // запятая разделяет не аргументы, а запуски теста
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
     void commonSearchTest(String testData) {
@@ -32,6 +31,17 @@ public class ParametrizedWebTest {
                 .first()
                 .shouldHave(Condition.text(testData));
     }
+    @ValueSource(strings = {"Selenide_Вышла Selenide", "Junit_5 is the next generation of"}) // через нижнее подчеркивание пишем проверочные данные
+    @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
+    void commonSearchTestVariant(String testData) {
+        String[] split = testData.split("_"); // .split делит строку testData на две в месте символа "_"
+        Selenide.open("https://ya.ru");
+        Selenide.$("#text").setValue(split[0]); // в поиск идет первая часть строки
+        Selenide.$("button[type='submit']").click();
+        Selenide.$$("li.serp-item")
+                .first()
+                .shouldHave(Condition.text(split[1])); // а в поверку идет вторая часть строки
+    } // в целом это плохой вариант, грязный код, лучше так не делать потому, что есть аннотация с двумя параметрами @CsvSource
 
     @CsvSource(value =  {
             "Selenide, ",
