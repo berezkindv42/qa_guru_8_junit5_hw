@@ -21,6 +21,8 @@ public class ParametrizedWebTest {
         System.out.println("@BeforeEach");
     }
 
+    // @ValueSource
+    // пример
     @ValueSource(strings = {"Selenide", "Junit"}) // запятая разделяет не аргументы, а запуски теста
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
     void commonSearchTest(String testData) {
@@ -31,6 +33,7 @@ public class ParametrizedWebTest {
                 .first()
                 .shouldHave(Condition.text(testData));
     }
+    // пример
     @ValueSource(strings = {"Selenide_Вышла Selenide", "Junit_5 is the next generation of"}) // через нижнее подчеркивание пишем проверочные данные
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
     void commonSearchTestVariant(String testData) {
@@ -43,10 +46,17 @@ public class ParametrizedWebTest {
                 .shouldHave(Condition.text(split[1])); // а в поверку идет вторая часть строки
     } // в целом это плохой вариант, грязный код, лучше так не делать потому, что есть аннотация с двумя параметрами @CsvSource
 
+
+
+    // @CsvSource
+    // пример
     @CsvSource(value =  {
-            "Selenide, ",
-            "Junit, 5 is the next generation of" // оранжевая запятая разделяет запуски тестов, зеленая аргументы
-    })
+            "Selenide; это фреймворк для автоматизированного тестирования, и не только лишь!",
+            "Junit; 5 is the next generation of, framework" // оранжевая запятая разделяет запуски тестов, зеленая аргументы
+            // если в строке аргументов будет запятая, эту ситуацию Junit воспримет как ошибку (будет думать, что аргумента три)
+            // что бы это победить мы можем переопределить delimiter // delimiter = ';' это заменит запятую, разделяющую аргументы на точку с запятой.
+    }, delimiter = ';'
+    )
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
     void common2SearchTest(String testData, String expectedResult) {
         Selenide.open("https://ya.ru");
@@ -56,7 +66,24 @@ public class ParametrizedWebTest {
                 .first()
                 .shouldHave(Condition.text(expectedResult));
     }
+    // пример // в случае если нам нужен один параметр String, а другой int, мы можем написать следующим образом:
+    @CsvSource(value =  {
+            "Selenide, 1", // так же мы можем использовать любой тип данных: boolean, double и т. д.
+            "Junit, 5"
+    }) // Junit сам определит для какой тип данных // так же нужно изменить тип аргументов в параметрах теста
+    @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
+    void common2SearchTestVariant(String testData, int expectedResult) {
+        Selenide.open("https://ya.ru");
+        Selenide.$("#text").setValue(testData);
+        Selenide.$("button[type='submit'").click();
+        Selenide.$$("li.serp-item")
+                .first()
+                .shouldHave(Condition.text(testData)); // здесь должен быть expectedResult // testData тут только потому, что бы не было идея не подсвечивала ошибку
+    }
 
+
+    // @MethodSource
+    // пример
     static Stream<Arguments> commonSearchTestDataProvider() {
         return Stream.of(
                 Arguments.of("Selenide", false, List.of("1", "2")),

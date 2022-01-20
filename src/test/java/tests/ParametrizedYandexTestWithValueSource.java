@@ -12,9 +12,9 @@ public class ParametrizedYandexTestWithValueSource {
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
     void commonSearchTest(String testData) {
         testPages.openPage("https://yandex.ru/")
-                .typeSearchData(testData)
+                .typeYaSearchData(testData)
                 .pushYaSubmitButton()
-                .checkResult(testData);
+                .checkYaResult(testData);
     }
 
 }
