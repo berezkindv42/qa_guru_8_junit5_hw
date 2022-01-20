@@ -1,4 +1,4 @@
-package com.ddcompany;
+package com.ddcompany.lesson8Junit5WithDescription;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
@@ -27,7 +27,7 @@ public class ParametrizedWebTest {
     void commonSearchTest(String testData) {
         Selenide.open("https://ya.ru");
         Selenide.$("#text").setValue(testData);
-        Selenide.$("button[type='submit'").click();
+        Selenide.$("button[type='submit']").click();
         Selenide.$$("li.serp-item")
                 .first()
                 .shouldHave(Condition.text(testData));

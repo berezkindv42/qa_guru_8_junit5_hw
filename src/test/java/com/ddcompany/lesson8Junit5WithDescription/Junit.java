@@ -1,4 +1,4 @@
-package com.ddcompany;
+package com.ddcompany.lesson8Junit5WithDescription;
 
 import org.junit.jupiter.api.Test;
 
