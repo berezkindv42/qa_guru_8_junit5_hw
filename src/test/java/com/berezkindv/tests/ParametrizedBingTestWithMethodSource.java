@@ -1,18 +1,19 @@
-package tests;
+package com.berezkindv.tests;
 
+import com.berezkindv.pages.TestPages;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import pages.TestPages;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import static tests.TestData.bingSearch;
+import static com.berezkindv.tests.TestData.bingSearch;
 
 public class ParametrizedBingTestWithMethodSource {
 
     TestPages testPages = new TestPages();
+
 
     static Stream<Arguments> commonSearchTestDataProvider() {
         return Stream.of(

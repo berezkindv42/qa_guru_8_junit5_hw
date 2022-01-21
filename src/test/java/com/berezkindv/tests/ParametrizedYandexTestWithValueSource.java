@@ -1,10 +1,11 @@
-package tests;
+package com.berezkindv.tests;
 
+import com.berezkindv.pages.TestPages;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import pages.TestPages;
 
-import static tests.TestData.yaSearch;
+import static com.berezkindv.tests.TestData.yaSearch;
+
 
 public class ParametrizedYandexTestWithValueSource {
 

@@ -1,4 +1,4 @@
-package tests;
+package com.berezkindv.tests;
 
 public class TestData {
 

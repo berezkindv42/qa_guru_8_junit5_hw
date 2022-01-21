@@ -1,10 +1,11 @@
-package tests;
+package com.berezkindv.tests;
 
+import com.berezkindv.pages.TestPages;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import pages.TestPages;
 
-import static tests.TestData.gooSearch;
+import static com.berezkindv.tests.TestData.gooSearch;
+
 
 public class ParametrizedGoogleTestWithCsvSource {
 
