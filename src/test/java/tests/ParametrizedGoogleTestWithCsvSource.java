@@ -2,8 +2,9 @@ package tests;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import pages.TestPages;
+
+import static tests.TestData.gooSearch;
 
 public class ParametrizedGoogleTestWithCsvSource {
 
@@ -16,7 +17,7 @@ public class ParametrizedGoogleTestWithCsvSource {
     })
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
     void commonSearchTest(String testData, String expectedResult) {
-        testPages.openPage("https://google.com/")
+        testPages.openPage(gooSearch)
                 .gooSearchData(testData)
                 .pushGooSubmitButton()
                 .checkGooResult(expectedResult);

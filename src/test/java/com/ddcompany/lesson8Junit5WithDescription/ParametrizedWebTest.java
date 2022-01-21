@@ -84,18 +84,18 @@ public class ParametrizedWebTest {
 
     // @MethodSource
     // пример
+    // этот метод называется Data Provider // он может в скобках Argument.of() возвращать любые объекты любых типов
     static Stream<Arguments> commonSearchTestDataProvider() {
         return Stream.of(
                 Arguments.of("Selenide", false, List.of("1", "2")),
                 Arguments.of("Junit", true, List.of("3", "4"))
         );
     }
-
     @MethodSource("commonSearchTestDataProvider")
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
-    void common3SearchTest(String testData, boolean flag, List<String> List) {
+    void common3SearchTest(String testData, boolean flag, List list) {
         System.out.println("Flag: " + flag);
-        System.out.println("List: ");
+        System.out.println("List: " + list.toString());
         Selenide.open("https://ya.ru");
         Selenide.$("#text").setValue(testData);
         Selenide.$("button[type='submit'").click();
