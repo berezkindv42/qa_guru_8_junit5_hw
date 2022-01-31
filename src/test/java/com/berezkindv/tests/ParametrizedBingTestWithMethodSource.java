@@ -1,6 +1,6 @@
 package com.berezkindv.tests;
 
-import com.berezkindv.pages.TestPages;
+import com.berezkindv.pages.BingPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -12,7 +12,7 @@ import static com.berezkindv.tests.TestData.bingSearch;
 
 public class ParametrizedBingTestWithMethodSource {
 
-    TestPages testPages = new TestPages();
+    BingPage bingPage = new BingPage();
 
 
     static Stream<Arguments> commonSearchTestDataProvider() {
@@ -27,7 +27,7 @@ public class ParametrizedBingTestWithMethodSource {
     void commonSearchTest(String testData, String expectedResult, Boolean flag, List<String> list) {
         System.out.println("Flag: " + flag);
         System.out.println("List: " + list.toString());
-        testPages.openPage(bingSearch)
+        bingPage.openPage(bingSearch)
                 .bingSearchData(testData)
                 .pushBingSubmitButton()
                 .checkBingResult(expectedResult);
