@@ -1,6 +1,6 @@
 package com.berezkindv.tests;
 
-import com.berezkindv.pages.TestPages;
+import com.berezkindv.pages.GooPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -9,7 +9,7 @@ import static com.berezkindv.tests.TestData.gooSearch;
 
 public class ParametrizedGoogleTestWithCsvSource {
 
-    TestPages testPages = new TestPages();
+    GooPage gooPage = new GooPage();
 
     @CsvSource(value = {
             "Selenide, это фреймворк для автоматизированного тестирования",
@@ -18,7 +18,7 @@ public class ParametrizedGoogleTestWithCsvSource {
     })
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
     void commonSearchTest(String testData, String expectedResult) {
-        testPages.openPage(gooSearch)
+        gooPage.openPage(gooSearch)
                 .gooSearchData(testData)
                 .pushGooSubmitButton()
                 .checkGooResult(expectedResult);
