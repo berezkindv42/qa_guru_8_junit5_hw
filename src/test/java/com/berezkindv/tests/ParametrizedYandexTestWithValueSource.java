@@ -11,6 +11,7 @@ public class ParametrizedYandexTestWithValueSource {
 
     YaPage yaPage = new YaPage();
 
+    //параметризованный тест для проверки поиска Яндекса
     @ValueSource(strings = {"Selenide", "Allure", "Junit"})
     @ParameterizedTest(name = "Тестирование общего алгоритма поиска с тестовыми данными: {0}")
     void commonSearchTest(String testData) {
